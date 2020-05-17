@@ -2,7 +2,7 @@
 
 ECG System with STM32F405RGT and AD8232
 
-The system is made up of an interface between an AD8232 and a development card based on the STM32F405 MCU used for the processing, sending and encryption of the electrocardiographic data.
+The system is an interface between an AD8232 and a MCU STM32F405 used to processing, encryption and sending electrocardiography data to a remote server.
 
 This part was created in Eagle .
 
