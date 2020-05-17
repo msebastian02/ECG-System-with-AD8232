@@ -6,19 +6,19 @@ ECG System with STM32F405RGT and AD8232
 -This part was created in Eagle .
 
 -Repository Contents
--Hardware - All Eagle design files (.brd, .sch)
--Software - MCU Code & WebPageInterface
-  *MCU Code - Written and compiled in Keil uVision v5.29
-  *WebPageInterface - FrontEnd Written and compiled in Angular 8+ Framework & BackEnd Written and compiled in Python Flask 
+ 1.Hardware - All Eagle design files (.brd, .sch)
+ 2.Software - MCU Code & WebPageInterface
+   *MCU Code - Written and compiled in Keil uVision v5.29
+   *WebPageInterface - FrontEnd Written and compiled in Angular 8+ Framework & BackEnd Written and compiled in Python Flask 
 
-Documentation
-Monograph of the degree project related to the project
+-Documentation
+ Monograph of the degree project related to the project
 
-Version History
-v1.0 Initial Release
+-Version History
+ v1.0 Initial Release
 
-License Information
-The hardware and code was developed by:
-*Juan Sebastian Munar Aldana
-*Carlos Eduardo Moreno Doria
-Electronic engineers from Santo Tomas university, Bogota.
+-License Information
+ The hardware and code was developed by:
+ *Juan Sebastian Munar Aldana
+ *Carlos Eduardo Moreno Doria
+ Electronic engineers from Santo Tomas university, Bogota.
