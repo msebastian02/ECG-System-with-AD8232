@@ -2,7 +2,7 @@
 
 ECG System with STM32F405RGT and AD8232
 
-The system is an interface between an AD8232 and a MCU STM32F405 used to processing, encryption and sending electrocardiography data to a remote server.
+The system is an interface between an AD8232 and a MCU STM32F405 used to processing, encryption and sending electrocardiography data to a remote server via wifi.
 
 This part was created in Eagle .
 
@@ -13,8 +13,8 @@ Repository Contents
 2. Software - MCU Code &amp; WebPageInterface
 
 \*MCU Code - Written and compiled in Keil uVision v5.29
-
 \*WebPageInterface - FrontEnd Written and compiled in Angular 8+ Framework &amp; BackEnd Written and compiled in Python Flask
+\*ESP01 Code - Written and compiled in Arduino IDE
 
 Documentation
 
