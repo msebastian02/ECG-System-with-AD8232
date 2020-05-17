@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\sebas\source\repos\aes_app\aes_app\boxes.h(41): warning C4309: 'inicializando': truncamiento de valor constante
+  AES_App.vcxproj -> C:\Users\sebas\source\repos\AES_App\Debug\AES_App.exe

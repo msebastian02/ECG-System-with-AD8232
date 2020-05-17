@@ -1,0 +1,51 @@
+<body>
+    <ng-template  #loginUserModal let-modal>
+        <div class="modal-header">
+            <div class="avatar"></div>	
+            <h4 class="modal-title">Log In</h4>           
+        </div>
+        <form [formGroup]="loginInformationForm" (ngSubmit)="onSubmit(modal)">
+            <div class="modal-body">
+                <div *ngIf="!isVisible">
+                    <div class="alertMessage">{{errorMessage}}</div>
+                    <div class="form-group">
+                        <span><i class="fa fa-user"></i></span> 
+                        <input type="text" class="form-control" formControlName="username" placeholder="Username" required>
+                        <div class="alert" *ngIf="!username.valid && username.touched ">
+                            <div *ngIf="username.hasError('pattern')">
+                                Username is invalid
+                            </div>
+                            <div *ngIf="username.hasError('required')">
+                                Please enter your username
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span><i class="fa fa-lock"></i></span>
+                        <input class="form-control" type="password" formControlName="password" 
+                        placeholder="Password" required>
+                        <div class="alert" *ngIf="!password.valid && password.touched ">
+                            <div *ngIf="password.hasError('pattern')">
+                                Password is invalid
+                            </div>
+                            <div *ngIf="password.hasError('required')">
+                                Please enter your password
+                            </div>
+                            <div *ngIf="password.hasError('minlength') && !password.hasError('pattern')">
+                                Password is too short (minimum is 8 characters)
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="!loginInformationForm.valid">
+                        Save changes
+                    </button>
+                </div>
+                <div *ngIf="isVisible">
+                    <div class="lds-ripple">
+                        <div></div><div></div>
+                    </div>            
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</body>

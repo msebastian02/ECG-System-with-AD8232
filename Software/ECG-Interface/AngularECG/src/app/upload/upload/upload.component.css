@@ -1,0 +1,87 @@
+.inputContainer {
+  overflow: hidden;
+  position: absolute;
+  cursor: hand;
+}
+.fileContainer {
+  padding-top: 10%;
+  padding-left: 40%;
+}
+.path{
+  padding: 13px;
+  margin-left: 10%;
+  border-bottom: 1px solid rgb(173, 177, 173);
+  color: #817e7e;
+}
+.inputContainer [type=file] {
+  overflow: auto;
+  cursor: inherit;
+  display: block;
+  font-size: 999px;
+  filter: alpha(opacity=0);
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 0;
+}
+.btn {
+  background-color: rgb(0, 162, 255);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 20px;
+  font-size: 20px;
+  border-radius: 50%; 
+  border-color: rgb(0, 162, 255);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+.btn:hover {
+  background-color:#EEEEEE;
+  color: rgb(0, 162, 255);
+  cursor: hand; 
+}
+.extra{
+  justify-content: center; 
+  padding-top: 1%;
+}
+.extra input{
+  background-color:transparent; 
+  font: 800; 
+  color: #606060; 
+  border-style: none;
+}
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid rgb(0, 162, 255);
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+  }
+  100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+  }
+}
+

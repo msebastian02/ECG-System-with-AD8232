@@ -1,0 +1,199 @@
+<body>
+    <app-login></app-login>
+    <div *ngIf="!isVisible">
+        <button class="btn add-user" (click)="addUser()"><i class="fa fa-user-plus"></i></button>
+    </div>
+    <div class="row">
+        <div class="col-6" *ngIf="!isVisible">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th (click)="sortClick()"scope="col">
+                            Patients
+                            <button class="btn" (click)="searchClick()"><i class="fa fa-search"></i></button>
+                        </th>
+                    </tr>
+                    <tr class="filter">
+                        <div  [style.display]="hideFilter ? 'block' : 'none'" style="padding: 10px;">
+                            <input [(ngModel)]="filtername"  class="form-control form-control-sm" 
+                                type="search" placeholder="Find by name">
+                        </div>
+                        <div [style.display]="hideFilter ? 'block' : 'none'" class="alert alert-warning alert-dismissable" *ngIf="(users | nameFilterPipe: filtername).length === 0">
+                            <strong>Warning!</strong> User doesn't exist.
+                        </div>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let user of users | nameFilterPipe: filtername">
+                        <td (click)="userClick(user.name)">{{user.name}}</td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+        <div class="col-6" *ngIf="!isVisible">
+            <div class="centered-1" *ngIf="isSelectingUser">
+                <div class="lds-ripple">
+                    <div></div><div></div>
+                </div>            
+            </div>
+            <div class="card" *ngIf="isSelected && !isSelectingUser" style="width: 25rem;">
+                <div class="avatar">
+                    <img src="" alt="avatar">
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <button type="button" class="close" (click)="isSelected = false" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>  
+                        <label class="card-title name">{{patient.name}}</label><br>
+
+                    </li>
+                    <li class="list-group-item">
+                        <label class="card-text info">
+                            <i class="fa fa-user"></i> {{patient.age}} years
+                        </label><br>
+                        <label class="card-text info">
+                           <i class="fa fa-home"></i> {{patient.address}}
+                        </label><br>       
+                        <label class="card-text info">
+                            <i class="fa fa-envelope"></i> {{patient.email}}
+                        </label><br>    
+                        <label class="card-text info">
+                            <i class="fa fa-phone"></i> {{patient.phone}}
+                        </label><br>
+                    </li>
+                    <li class="list-group-item" [style.display]="isEmpty ? 'block' : 'none'">
+                        <label class="card-title">Muestra(s) | <button class="btn" (click)="addSample()"><i class="fa fa-plus-square"></i></button></label>
+                        <div *ngFor="let sample of patient.samples; index as i">
+                            <label class="card-text">Sample {{i+1}}: {{getDate(sample.date)|date:"medium"}}  |</label>
+                            <button class="btn" (click)="toGraph(i)"><i class="fa fa-external-link"></i></button>
+                            <button class="btn" (click)="deleteSample(i)">| <i class="fa fa-trash-o"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>        
+    </div>
+
+    <div class="centered" *ngIf="isVisible">
+        <div class="lds-ripple">
+            <div></div><div></div>
+        </div>            
+    </div>
+
+    <ng-template #addSamplesModal let-modal>
+        <div class="modal-header">
+            <label class="modal-title">Samples Available</label>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="addSamplesForm" (ngSubmit)="onSubmit(modal)">
+                <div class="form-group row">
+                    <div class="col-10">    
+                        <div class="card card-body samples-card">
+                            <label formArrayName="samples" *ngFor="let sample of addSamplesForm['controls'].samples['controls']; let i = index">
+                                <input  type="checkbox" [formControlName]="i">
+                                    Sample {{i+1}}: {{getDate(samplesA[i].date) | date:"medium"}}
+                            </label> 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class=" btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+    <ng-template #newUserModal let-modal>
+        <div class="modal-header">
+            <label class="modal-title">New User</label>
+            <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form *ngIf="!isAddingUser" [formGroup]="newUserForm" (ngSubmit)="submitUser(modal)">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">                    
+                        <input type="text" class="form-control" formControlName="name" required>
+                        <div class="alert-invalid" *ngIf="!name.valid && name.touched ">
+                            <div *ngIf="name.hasError('pattern')">
+                                Name is invalid
+                            </div>
+                            <div *ngIf="name.hasError('required')">
+                                Please enter the user name
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">{{age.invalid}}</label>
+                    <div class="col-sm-10" >
+                        <input class="form-control" type="number" formControlName="age" required>
+                        <div class="alert-invalid" *ngIf="!age.valid && age.touched">
+                            <div *ngIf="age.hasError('required')">
+                                Please enter the user age
+                            </div>
+                            <div *ngIf="age.hasError('maxlength')">
+                                Age is too large (maximum is 2 numbers)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Phone</label>
+                    <div class="col-sm-10" >
+                        <input class="form-control" type="number" formControlName="phone" required>
+                        <div class="alert-invalid" *ngIf="!phone.valid && phone.touched ">
+                            <div *ngIf="phone.hasError('required')">
+                                Please enter an number phone
+                            </div>
+                            <div *ngIf="phone.hasError('minlength')">
+                                Number phone is too short
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10" >
+                        <input class="form-control" type="email" formControlName="email" required>
+                        <div class="alert-invalid" *ngIf="!email.valid && email.touched ">
+                            <div *ngIf="email.hasError('pattern')">
+                                Email is invalid
+                            </div>
+                            <div *ngIf="email.hasError('required')">
+                                Please enter an user email
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10" >
+                        <input class="form-control" type="text" formControlName="address" required>
+                        <div class="alert-invalid" *ngIf="!address.valid && address.touched ">
+                            <div *ngIf="address.hasError('pattern')">
+                                Address is invalid
+                            </div>
+                            <div *ngIf="address.hasError('required')">
+                                Please enter the user address
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="col-sm-4" type="submit" class="btn btn-primary" [disabled]="!newUserForm.valid">Save changes</button>
+                </div>
+            </form>
+            <div class="centered" *ngIf="isAddingUser">
+                <div class="lds-ripple">
+                    <div></div><div></div>
+                </div>            
+            </div>
+        </div>
+    </ng-template>
+</body>

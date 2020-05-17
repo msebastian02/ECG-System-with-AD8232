@@ -1,0 +1,18 @@
+<body>
+    <app-login></app-login>
+    <div class="row fileContainer">
+        <label class="inputContainer">
+            <button class="btn"><i class="fa fa-paperclip"></i></button>
+            <input type="file" (change)="onFileChange(fileInput.files)" accept=".txt" style="cursor: pointer;" #fileInput/>
+        </label>
+        <label class="path"> {{path}} </label>
+    </div>
+    <div class="row extra" *ngIf="isVisible">
+        <div class="lds-ripple">
+            <div></div><div></div>
+        </div>            
+    </div>
+    <div class="row extra"> 
+        <label>{{message}}</label>    
+    </div>
+</body>
