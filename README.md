@@ -10,7 +10,7 @@ Repository Contents
 
 1. Hardware - All Eagle design files (.brd, .sch)
 
-2. Software - MCU Code &amp;amp; WebPageInterface
+2. Software - MCU Code & WebPageInterface
 
 \*MCU Code - Written and compiled in Keil uVision v5.29
 
