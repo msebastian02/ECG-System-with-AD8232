@@ -22,7 +22,7 @@
     "@angular/router": "~9.0.1",
     "@ng-bootstrap/ng-bootstrap": "^6.0.1",
     "angular-highcharts": "^9.0.2",
-    "highcharts": "^8.0.4",
+    "highcharts": "^8.1.1",
     "highcharts-angular": "^2.4.0",
     "ngp-sort-pipe": "0.0.4",
     "rxjs": "~6.5.4",
